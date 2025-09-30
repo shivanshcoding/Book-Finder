@@ -1,14 +1,15 @@
 // frontend/components/Loader.jsx
-import React from "react";
+import React from 'react';
 
 const Loader = () => {
   return (
-    <div className="flex flex-col justify-center items-center py-10">
+    <div className="flex flex-col items-center justify-center py-12 sm:py-16">
       <div className="relative">
-        <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200"></div>
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-indigo-600 absolute top-0 left-0"></div>
+        <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full border-t-4 border-b-4 border-indigo-500 animate-spin"></div>
+        <div className="absolute top-0 left-0 h-16 w-16 sm:h-20 sm:w-20 rounded-full border-t-4 border-b-4 border-purple-500 animate-spin opacity-70" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
       </div>
-      <p className="mt-4 text-gray-600 font-medium">Loading books...</p>
+      <p className="mt-5 text-indigo-600 font-medium text-lg sm:text-xl">Loading books...</p>
+      <p className="text-gray-500 text-sm mt-2">This may take a moment</p>
     </div>
   );
 };

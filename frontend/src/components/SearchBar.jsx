@@ -80,14 +80,14 @@ const SearchBar = ({ onSearch }) => {
       <div className="flex flex-col sm:flex-row items-center gap-3">
         <div className="relative flex-grow w-full">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg className="h-5 w-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </div>
           <input
             ref={inputRef}
             type="text"
-            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-500 focus:outline-none shadow-sm"
+            className="block w-full pl-10 pr-3 py-3 sm:py-4 border border-indigo-200 rounded-lg bg-white focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-indigo-300 focus:outline-none shadow-sm"
             placeholder="Search for books by title..."
             value={query}
             onChange={(e) => {
@@ -99,7 +99,7 @@ const SearchBar = ({ onSearch }) => {
         <button
           type="submit"
           onClick={handleSubmit}
-          className="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors shadow-sm"
+          className="w-full sm:w-auto px-6 py-3 sm:py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 shadow-md"
         >
           Search
         </button>
@@ -108,23 +108,23 @@ const SearchBar = ({ onSearch }) => {
       {/* Suggestions dropdown */}
       {showSuggestions && query.trim() !== "" && (
         <div 
-          className="absolute z-10 mt-2 w-full bg-white shadow-lg rounded-lg border border-gray-200 max-h-60 overflow-y-auto"
+          className="absolute z-10 mt-2 w-full bg-white shadow-lg rounded-lg border border-indigo-200 max-h-60 overflow-y-auto"
         >
           {isLoading ? (
-            <div className="p-4 text-center text-gray-500">
-              <div className="inline-block animate-spin h-4 w-4 border-t-2 border-gray-500 rounded-full mr-2"></div>
+            <div className="p-4 text-center text-indigo-500">
+              <div className="inline-block animate-spin h-5 w-5 border-t-2 border-indigo-500 rounded-full mr-2"></div>
               Loading suggestions...
             </div>
           ) : suggestions.length > 0 ? (
-            <ul className="divide-y divide-gray-100">
+            <ul className="divide-y divide-indigo-100">
               {suggestions.map((suggestion) => (
                 <li 
                   key={suggestion.key}
-                  className="px-4 py-2.5 hover:bg-gray-50 cursor-pointer text-gray-700 transition-colors"
+                  className="px-4 py-3 hover:bg-indigo-50 cursor-pointer text-indigo-700 transition-colors"
                   onClick={() => handleSuggestionClick(suggestion)}
                 >
                   <div className="flex items-center">
-                    <svg className="h-4 w-4 text-gray-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="h-4 w-4 text-indigo-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                     <span className="truncate">{suggestion.title}</span>
@@ -133,7 +133,7 @@ const SearchBar = ({ onSearch }) => {
               ))}
             </ul>
           ) : (
-            <div className="p-4 text-center text-gray-500">No suggestions found</div>
+            <div className="p-4 text-center text-indigo-500">No suggestions found</div>
           )}
         </div>
       )}
