@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const SearchHistorySidebar = ({ searchHistory, onSelectHistory, setSearchHistory }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   
   // Format the timestamp to a readable format
   const formatTimestamp = (timestamp) => {
@@ -33,7 +33,7 @@ const SearchHistorySidebar = ({ searchHistory, onSelectHistory, setSearchHistory
       >
         <svg 
           className="w-4 h-4 transition-transform duration-300" 
-          style={{ transform: isOpen ? 'rotate(0deg)' : 'rotate(180deg)' }}
+          style={{ transform: !isOpen ? 'rotate(0deg)' : 'rotate(180deg)' }}
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24" 
