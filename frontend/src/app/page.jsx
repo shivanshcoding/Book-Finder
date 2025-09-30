@@ -123,12 +123,12 @@ const HomePage = () => {
                 setSearchHistory={setSearchHistory}
             />
             {/* Header with gradient and shadow */}
-            <header className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 shadow-lg py-5 sm:py-3 mb-6  sticky top-0 z-10 backdrop-blur-sm bg-opacity-95">
+            <header className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 shadow-lg py-5 sm:py-3 mb-6  sticky top-0 z-10">
                 <div className="container mx-auto px-4 sm:px-6">
                     <h1 className="text-3xl md:text-4xl font-bold text-center text-white tracking-tight drop-shadow-md animate-fadeIn">
                         <span className="inline-block transform hover:scale-105 transition-transform duration-300 text-shadow-black-md">📚</span> Book Finder
                     </h1>
-                    <p className="text-center text-indigo-100 text-base sm:text-lg max-w-2xl mx-auto opacity-95">
+                    <p className="text-center text-indigo-100 text-base sm:text-lg max-w-2xl mx-auto">
                         Search for books and discover your next great read
                     </p>
                 </div>

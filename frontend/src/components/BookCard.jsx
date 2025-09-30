@@ -46,7 +46,7 @@ const BookCard = ({ book }) => {
         )}
       </div>
       
-      <div className="p-5 sm:p-6 relative z-10">
+      <div className="p-5 sm:p-6 relative">
         <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2.5 line-clamp-2 group-hover:text-indigo-700 transition-colors">{title}</h3>
         
         {author_name && author_name.length > 0 && (
