@@ -11,22 +11,87 @@ const HomePage = () => {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchParams, setSearchParams] = useState({
+        query: "",
+        type: "title",
+        filters: {}
+    });
+    const [searchHistory, setSearchHistory] = useState([]);
+    const [popularCategories, setPopularCategories] = useState([
+        { name: "Fiction", query: "fiction", type: "subject" },
+        { name: "Science", query: "science", type: "subject" },
+        { name: "History", query: "history", type: "subject" },
+        { name: "Fantasy", query: "fantasy", type: "subject" },
+        { name: "Biography", query: "biography", type: "subject" },
+        { name: "Self-Help", query: "self-help", type: "subject" }
+    ]);
 
-    const searchBooks = async (query) => {
+    // Load search history from localStorage on component mount
+    React.useEffect(() => {
+        const savedHistory = localStorage.getItem('searchHistory');
+        if (savedHistory) {
+            try {
+                setSearchHistory(JSON.parse(savedHistory).slice(0, 5));
+            } catch (e) {
+                console.error("Error loading search history:", e);
+            }
+        }
+    }, []);
+
+    const searchBooks = async (searchData) => {
         setLoading(true);
         setError("");
         setBooks([]);
-        setSearchQuery(query);
+        setSearchParams(searchData);
 
         try {
-            const res = await fetch(
-                `http://localhost:5000/api/books?title=${encodeURIComponent(query)}`
-            );
+            // Build the API URL based on search type
+            let apiUrl = 'http://localhost:5000/api/books?';
+            
+            switch(searchData.type) {
+                case "author":
+                    apiUrl += `author=${encodeURIComponent(searchData.query)}`;
+                    break;
+                case "subject":
+                    apiUrl += `subject=${encodeURIComponent(searchData.query)}`;
+                    break;
+                case "isbn":
+                    apiUrl += `isbn=${encodeURIComponent(searchData.query)}`;
+                    break;
+                case "title":
+                default:
+                    apiUrl += `title=${encodeURIComponent(searchData.query)}`;
+            }
+            
+            // Add filters if they exist
+            if (searchData.filters) {
+                if (searchData.filters.year) {
+                    apiUrl += `&year=${searchData.filters.year}`;
+                }
+                if (searchData.filters.language) {
+                    apiUrl += `&language=${searchData.filters.language}`;
+                }
+            }
+            
+            const res = await fetch(apiUrl);
             const data = await res.json();
 
             if (data.docs && data.docs.length > 0) {
                 setBooks(data.docs.slice(0, 20)); // Show first 20 results
+                
+                // Save to search history
+                const newSearch = {
+                    query: searchData.query,
+                    type: searchData.type,
+                    timestamp: new Date().toISOString()
+                };
+                
+                const updatedHistory = [newSearch, ...searchHistory.filter(item => 
+                    item.query !== searchData.query || item.type !== searchData.type
+                )].slice(0, 5);
+                
+                setSearchHistory(updatedHistory);
+                localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
             } else {
                 setError("No results found. Try a different search term.");
             }
@@ -83,7 +148,7 @@ const HomePage = () => {
                         <div className="mb-6 sm:mb-8">
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-indigo-200 pb-3 sm:pb-4 mb-4 sm:mb-6 gap-2">
                                 <h2 className="text-lg sm:text-xl font-semibold text-indigo-800">
-                                    Found {books.length} results for "{searchQuery}"
+                                    Found {books.length} results for "{searchParams.query}"
                                 </h2>
                                 <span className="text-sm text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full inline-block shadow-sm border border-indigo-100">Showing top {books.length} matches</span>
                             </div>
@@ -97,13 +162,58 @@ const HomePage = () => {
                     )}
                     
                     {/* Empty state when no search has been performed */}
-                    {!loading && !error && books.length === 0 && !searchQuery && (
-                        <div className="text-center py-8 sm:py-16 bg-white rounded-xl shadow-md border border-indigo-100 max-w-2xl mx-auto">
+                    {!loading && !error && books.length === 0 && !searchParams.query && (
+                        <div className="text-center py-8 sm:py-16 bg-white rounded-xl shadow-md border border-indigo-100 max-w-4xl mx-auto">
                             <div className="text-6xl sm:text-7xl mb-3 sm:mb-4">🔍</div>
                             <h3 className="text-lg sm:text-xl font-medium text-indigo-800 mb-2">Start your book search</h3>
-                            <p className="text-indigo-600 max-w-md mx-auto text-sm sm:text-base">
-                                Enter a book title in the search bar above to discover your next favorite read
+                            <p className="text-indigo-600 max-w-md mx-auto text-sm sm:text-base mb-8">
+                                Enter a book title, author, or subject in the search bar above to discover your next favorite read
                             </p>
+                            
+                            {/* Popular Categories */}
+                            <div className="mb-8">
+                                <h4 className="text-md font-medium text-indigo-800 mb-3">Popular Categories</h4>
+                                <div className="flex flex-wrap justify-center gap-2">
+                                    {popularCategories.map((category, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => searchBooks({
+                                                query: category.query,
+                                                type: category.type,
+                                                filters: {}
+                                            })}
+                                            className="px-4 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded-full text-sm transition-all duration-300"
+                                        >
+                                            {category.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            {/* Search History */}
+                            {searchHistory.length > 0 && (
+                                <div>
+                                    <h4 className="text-md font-medium text-indigo-800 mb-3">Recent Searches</h4>
+                                    <div className="flex flex-wrap justify-center gap-2">
+                                        {searchHistory.map((item, index) => (
+                                            <button
+                                                key={index}
+                                                onClick={() => searchBooks({
+                                                    query: item.query,
+                                                    type: item.type,
+                                                    filters: {}
+                                                })}
+                                                className="px-4 py-2 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-full text-sm transition-all duration-300 flex items-center"
+                                            >
+                                                <span>{item.query}</span>
+                                                <span className="ml-2 bg-purple-200 text-purple-800 text-xs px-2 py-0.5 rounded-full">
+                                                    {item.type}
+                                                </span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     )}
                 </main>
