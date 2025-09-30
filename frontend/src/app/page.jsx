@@ -47,7 +47,7 @@ const HomePage = () => {
 
         try {
             // Build the API URL based on search type
-            let apiUrl = 'http://localhost:5000/api/books?';
+            let apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/books?`;
 
             switch (searchData.type) {
                 case "author":

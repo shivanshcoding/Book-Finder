@@ -52,7 +52,7 @@ const SearchBar = ({ onSearch }) => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:5000/api/autocomplete?query=${encodeURIComponent(query)}&type=${searchType}`
+          `${process.env.NEXT_PUBLIC_API_URL}/autocomplete?query=${encodeURIComponent(query)}&type=${searchType}`
         );
         const data = await response.json();
         setSuggestions(data.suggestions || []);
