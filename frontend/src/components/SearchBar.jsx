@@ -115,7 +115,7 @@ const SearchBar = ({ onSearch }) => {
           <button
             type="button"
             onClick={() => handleSearchTypeChange("title")}
-            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 flex items-center ${
+            className={`cursor-pointer px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 flex items-center ${
               searchType === "title"
                 ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md"
                 : "bg-white text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800"
@@ -129,7 +129,7 @@ const SearchBar = ({ onSearch }) => {
           <button
             type="button"
             onClick={() => handleSearchTypeChange("author")}
-            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 flex items-center ${
+            className={`cursor-pointer px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 flex items-center ${
               searchType === "author"
                 ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md"
                 : "bg-white text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800"
@@ -143,7 +143,7 @@ const SearchBar = ({ onSearch }) => {
           <button
             type="button"
             onClick={() => handleSearchTypeChange("subject")}
-            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 flex items-center ${
+            className={`cursor-pointer px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 flex items-center ${
               searchType === "subject"
                 ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md"
                 : "bg-white text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800"
@@ -153,20 +153,6 @@ const SearchBar = ({ onSearch }) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
             </svg>
             Topic
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSearchTypeChange("isbn")}
-            className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 flex items-center ${
-              searchType === "isbn"
-                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md"
-                : "bg-white text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800"
-            }`}
-          >
-            <svg className="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
-            </svg>
-            ISBN
           </button>
         </div>
         
@@ -179,7 +165,7 @@ const SearchBar = ({ onSearch }) => {
           <svg className="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
           </svg>
-          <span>Filters</span>
+          <span className="cursor-pointer">Filters</span>
           <svg
             className={`ml-1 h-4 w-4 transition-transform duration-300 ${
               showAdvancedFilters ? "rotate-180" : ""
