@@ -122,11 +122,6 @@ const HomePage = () => {
                 onSelectHistory={handleSelectHistory}
                 setSearchHistory={setSearchHistory}
             />
-            <Head>
-                <title>Book Finder - Search for your favorite books</title>
-                <meta name="description" content="Find books by title, author, or subject using the Open Library API" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            </Head>
             {/* Header with gradient and shadow */}
             <header className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 shadow-lg py-5 sm:py-3 mb-6  sticky top-0 z-10 backdrop-blur-sm bg-opacity-95">
                 <div className="container mx-auto px-4 sm:px-6">
