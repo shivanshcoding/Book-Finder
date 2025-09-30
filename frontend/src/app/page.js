@@ -58,7 +58,6 @@ const HomePage = () => {
                 case "isbn":
                     apiUrl += `isbn=${encodeURIComponent(searchData.query)}`;
                     break;
-                case "title":
                 default:
                     apiUrl += `title=${encodeURIComponent(searchData.query)}`;
             }
@@ -104,19 +103,19 @@ const HomePage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 animate-gradient-x">
             <Head>
                 <title>Book Finder - Search for your favorite books</title>
                 <meta name="description" content="Find books by title, author, or subject using the Open Library API" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
                 {/* Header with gradient and shadow */}
-                <header className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-md py-4 sm:py-6 mb-4 sm:mb-8 sticky top-0 z-10">
+                <header className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 shadow-lg py-5 sm:py-3 mb-6  sticky top-0 z-10 backdrop-blur-sm bg-opacity-95">
                     <div className="container mx-auto px-4 sm:px-6">
-                        <h1 className="text-3xl md:text-5xl font-bold text-center text-white tracking-tight">
-                            📚 Book Finder
+                        <h1 className="text-3xl md:text-5xl font-bold text-center text-white tracking-tight drop-shadow-md animate-fadeIn">
+                            <span className="inline-block transform hover:scale-105 transition-transform duration-300 text-shadow-black-md">📚</span> Book Finder 
                         </h1>
-                        <p className="text-center text-indigo-100 mt-2 sm:mt-3 text-base sm:text-lg max-w-2xl mx-auto">
+                        <p className="text-center text-indigo-100 mt-2 sm:mt-3 text-base sm:text-lg max-w-2xl mx-auto opacity-95">
                             Search for books and discover your next great read
                         </p>
                     </div>
@@ -124,7 +123,7 @@ const HomePage = () => {
                 
                 <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 max-w-7xl flex-grow">
                     {/* Search section with card-like appearance */}
-                    <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-10 transition-all duration-300 hover:shadow-xl border border-indigo-100">
+                    <div className="bg-white rounded-xl shadow-lg p-5 sm:p-7 mb-8 sm:mb-12 transition-all duration-300 hover:shadow-xl border border-indigo-100 animate-fadeIn">
                         <SearchBar onSearch={searchBooks} />
                     </div>
                     
@@ -133,9 +132,9 @@ const HomePage = () => {
                     
                     {/* Error message */}
                     {error && (
-                        <div className="text-center mt-4 sm:mt-8 mb-4 sm:mb-6 max-w-2xl mx-auto">
-                            <div className="bg-red-50 border border-red-200 text-red-700 px-4 sm:px-6 py-3 sm:py-4 rounded-lg flex items-center justify-center shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <div className="text-center mt-4 sm:mt-8 mb-4 sm:mb-6 max-w-2xl mx-auto animate-fadeIn">
+                            <div className="bg-red-50 border border-red-200 text-red-700 px-5 sm:px-7 py-4 sm:py-5 rounded-lg flex items-center justify-center shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 flex-shrink-0 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                                 </svg>
                                 {error}
@@ -145,17 +144,24 @@ const HomePage = () => {
                     
                     {/* Results section */}
                     {books.length > 0 && (
-                        <div className="mb-6 sm:mb-8">
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-indigo-200 pb-3 sm:pb-4 mb-4 sm:mb-6 gap-2">
-                                <h2 className="text-lg sm:text-xl font-semibold text-indigo-800">
+                        <div className="mb-8 sm:mb-10 animate-fadeIn">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-indigo-200 pb-4 sm:pb-5 mb-6 sm:mb-8 gap-3">
+                                <h2 className="text-xl sm:text-2xl font-semibold text-indigo-800 flex items-center">
+                                    <svg className="w-6 h-6 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
                                     Found {books.length} results for "{searchParams.query}"
                                 </h2>
-                                <span className="text-sm text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full inline-block shadow-sm border border-indigo-100">Showing top {books.length} matches</span>
+                                <span className="text-sm text-indigo-600 bg-gradient-to-r from-indigo-50 to-purple-50 px-4 py-1.5 rounded-full inline-block shadow-md border border-indigo-100">
+                                    Showing top {books.length} matches
+                                </span>
                             </div>
                             
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
-                                {books.map((book) => (
-                                    book.cover_i? <BookCard key={book.key} book={book} /> : null
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+                                {books.map((book, index) => ( 
+                                    <div key={book.key} className="animate-fadeIn" style={{ animationDelay: `${index * 100}ms` }}>
+                                        <BookCard book={book} />
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -163,17 +169,22 @@ const HomePage = () => {
                     
                     {/* Empty state when no search has been performed */}
                     {!loading && !error && books.length === 0 && !searchParams.query && (
-                        <div className="text-center py-8 sm:py-16 bg-white rounded-xl shadow-md border border-indigo-100 max-w-4xl mx-auto">
-                            <div className="text-6xl sm:text-7xl mb-3 sm:mb-4">🔍</div>
-                            <h3 className="text-lg sm:text-xl font-medium text-indigo-800 mb-2">Start your book search</h3>
-                            <p className="text-indigo-600 max-w-md mx-auto text-sm sm:text-base mb-8">
+                        <div className="text-center py-10 sm:py-16 bg-white rounded-xl shadow-lg border border-indigo-100 max-w-4xl mx-auto animate-fadeIn">
+                            <div className="text-7xl sm:text-8xl mb-4 sm:mb-6 animate-float">🔍</div>
+                            <h3 className="text-xl sm:text-2xl font-medium text-indigo-800 mb-3">Start your book search</h3>
+                            <p className="text-indigo-600 max-w-md mx-auto text-base sm:text-lg mb-10 px-4">
                                 Enter a book title, author, or subject in the search bar above to discover your next favorite read
                             </p>
                             
                             {/* Popular Categories */}
-                            <div className="mb-8">
-                                <h4 className="text-md font-medium text-indigo-800 mb-3">Popular Categories</h4>
-                                <div className="flex flex-wrap justify-center gap-2">
+                            <div className="mb-10">
+                                <h4 className="text-lg font-medium text-indigo-800 mb-4 flex items-center justify-center">
+                                    <svg className="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                                    </svg>
+                                    Popular Categories
+                                </h4>
+                                <div className="flex flex-wrap justify-center gap-3">
                                     {popularCategories.map((category, index) => (
                                         <button
                                             key={index}
@@ -182,7 +193,7 @@ const HomePage = () => {
                                                 type: category.type,
                                                 filters: {}
                                             })}
-                                            className="px-4 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded-full text-sm transition-all duration-300"
+                                            className="px-5 py-2.5 bg-gradient-to-r from-indigo-100 to-purple-100 hover:from-indigo-200 hover:to-purple-200 text-indigo-700 rounded-full text-sm font-medium transition-all duration-300 shadow-sm hover:shadow-md transform hover:scale-105 active:scale-95"
                                         >
                                             {category.name}
                                         </button>
@@ -193,8 +204,13 @@ const HomePage = () => {
                             {/* Search History */}
                             {searchHistory.length > 0 && (
                                 <div>
-                                    <h4 className="text-md font-medium text-indigo-800 mb-3">Recent Searches</h4>
-                                    <div className="flex flex-wrap justify-center gap-2">
+                                    <h4 className="text-lg font-medium text-indigo-800 mb-4 flex items-center justify-center">
+                                        <svg className="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        Recent Searches
+                                    </h4>
+                                    <div className="flex flex-wrap justify-center gap-3">
                                         {searchHistory.map((item, index) => (
                                             <button
                                                 key={index}
@@ -203,10 +219,10 @@ const HomePage = () => {
                                                     type: item.type,
                                                     filters: {}
                                                 })}
-                                                className="px-4 py-2 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-full text-sm transition-all duration-300 flex items-center"
+                                                className="px-5 py-2.5 bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 text-purple-700 rounded-full text-sm font-medium transition-all duration-300 shadow-sm hover:shadow-md transform hover:scale-105 active:scale-95 flex items-center"
                                             >
                                                 <span>{item.query}</span>
-                                                <span className="ml-2 bg-purple-200 text-purple-800 text-xs px-2 py-0.5 rounded-full">
+                                                <span className="ml-2 bg-purple-200 text-purple-800 text-xs px-2.5 py-1 rounded-full">
                                                     {item.type}
                                                 </span>
                                             </button>
@@ -219,9 +235,10 @@ const HomePage = () => {
                 </main>
                 
                 {/* Footer */}
-                <footer className="bg-gradient-to-r from-indigo-600 to-purple-600 mt-8 sm:mt-16 py-6 sm:py-8 text-white">
-                    <div className="container mx-auto px-4 sm:px-6 text-center text-sm">
-                        <p>© {new Date().getFullYear()} Book Finder. Powered by Open Library API.</p>
+                <footer className="bg-gradient-to-r from-indigo-700 via-purple-700 to-indigo-800 mt-10 sm:mt-20 py-8 sm:py-10 text-white shadow-inner">
+                    <div className="container mx-auto px-4 sm:px-6 text-center">
+                        <p className="text-sm sm:text-base opacity-90">© {new Date().getFullYear()} Book Finder. Powered by Open Library API.</p>
+                        <p className="text-xs text-indigo-200 mt-2">Find your next favorite book with ease.</p>
                     </div>
                 </footer>
             </div>

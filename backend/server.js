@@ -40,7 +40,7 @@ app.get("/api/books", async (req, res) => {
     
     // Add filters if provided
     if (year) {
-      apiUrl += `&publish_year=${year}`;
+      apiUrl += `&first_publish_year=${year}`;
     }
     if (language) {
       apiUrl += `&language=${language}`;
